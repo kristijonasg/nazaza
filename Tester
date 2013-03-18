@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, 
+            width=device-width, height=device-height, target-densitydpi=device-dpi" />
+
+    <link rel="stylesheet" href="css/jquery.mobile-1.3.0.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+
+    <script type="text/javascript" src="cordova-2.4.0.js"></script>
+    <script src="js/jquery-1.9.1.js"></script>
+    <script src="js/jquery.mobile-1.3.0.js"></script>
+    <script type="text/javascript">
+        var array = new Array();
+        array[0] = "Keep trying.";
+        array[1] = "Sharpen the knife.";
+        array[2] = "This reed is not good enough. Shape more.";
+        array[3] = "Are you sure it is not nightmare?";
+        array[4] = "It still doesn't play, but now you have a cool smily face reed.";
+        array[5] = "Scrape a little bit more in a tip.";
+        array[6] = "The sound is terrible, keep scraping.";
+        array[7] = "Good luck with that.";
+        array[8] = "You overscraped this reed, take a blank one.";
+        array[9] = "What would your teacher say.";
+        array[10] = "Now it sounds like heaven, but opposite.";
+        //array[11] = "";
+        //array[12] = "";
+        //array[13] = "";
+        //array[14] = "";
+        //array[15] = "";
+        //array[16] = "";
+        //array[17] = "";
+         
+
+        var picArray = new Array();
+        picArray[0] = "css/Banner/1.gif";
+        picArray[1] = "css/Banner/2.jpg";
+        picArray[2] = "css/Banner/3.gif";
+        picArray[3] = "css/Banner/4.gif";
+        picArray[4] = "css/Banner/5.gif";
+        picArray[5] = "css/Banner/6.gif";
+        picArray[5] = "css/Banner/7.gif";
+
+        var i = 5;
+        var count = 0;
+
+        function onClick() {
+            var str = $("#span").text();
+            if (str.match("Sta")) {
+                $("#result").text("");
+                intervalID = setInterval(btnStopCounter, 1000);
+            } else if (str.match("Sto")) {
+                i = 5;
+                analyze(btn);
+            }
+            else
+                alert("else");
+        }
+
+        function btnStopCounter() {
+            var msg = "Stop(" + i + ")";
+            $("#span").text(msg);
+            $("#help").text("Recording...");
+            i--;
+            if (i == -2) {
+                i = 5;
+                analyze();
+            }
+        }
+
+        function analyze() {
+            clearInterval(intervalID);
+            $("#btn").attr("disabled", "");
+            $("#span").text("Analyzing...");
+            $("#help").text("Please wait");
+            setTimeout(displayResult, 2000);
+        }
+
+        function displayResult() {
+            $("#btn").removeAttr("disabled");
+            $("#span").text("Start over");
+            $("#result").text(array[Math.floor((Math.random() * (array.length + 1)))]);
+            $("#help").text("Press a button and play");
+        }
+
+        $("#main").ready(function () {
+            idAdd = setInterval(banner, 3000);
+        });
+
+        function banner() {
+            var x = "<img src='" + picArray[count] + "'/>";
+            $(".add").html("<img src='" + picArray[count] + "'/>");
+            count++;
+            if (count == picArray.length) {
+                count = 0;
+            }
+        }
+    </script>
+    <title>Reed Tester</title>
+</head>
+<body >
+    <div data-role="page" id="main" data-theme="a">
+        <div data-role="header">
+            <a href="#about" data-role="button" data-icon="info" class="ui-btn-right">About</a>
+            <h1>Reed Tester</h1>
+        </div>
+        <div data-role="content" id="content" data-fullscreen="true">
+            <div id="result">
+
+            </div>
+            <div id="bottom">
+                <button type="button" data-role="button" id="btn" onclick="onClick()">
+                    <span id="span">Start</span>
+                </button>
+                <div>
+                    <p id="help">Press a button and play</p>
+                </div>
+            </div>
+        </div>
+        <div data-role="footer" id="footter" data-position="fixed">
+            <div>
+                <span class="add"><a href="http://www.mezzo.lt" target="_blank"></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div id="about" data-role="page" data-theme="a">
+        <div data-role="header">
+            <a href="#main" data-role="button" data-icon="arrow-l" class="ui-btn-left">Back</a>
+            <h1>Reed Tester</h1>
+        </div>
+        <div data-role="content" data-fullscreen="true">
+            <h2>ver 1.0</h2>
+            <p>Inpired by Kaciukis</p>
+            <p>Created by Nazazka</p>
+            <p>2013</p>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            <div>
+                <span class="add"><a href="http://www.mezzo.lt" target="_blank"></a></span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
